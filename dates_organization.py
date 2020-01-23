@@ -18,13 +18,9 @@ while i < 51:
     date16.append(lista[379])
     
     i = i + 1
-
-datas = []
-
-datas.append(date04)
-datas.append(date10)
-datas.append(date16)
-
-seriesview =pd.DataFrame(datas)
+seriesview =pd.DataFrame()
+seriesview['year04'] = date04
+seriesview['year10'] = date10
+seriesview['year16'] = date16
 
 seriesview.to_csv("seriesview.csv")
