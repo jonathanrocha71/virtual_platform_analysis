@@ -1,0 +1,40 @@
+var MODIS = ee.ImageCollection('MODIS/006/MOD13Q1')
+            .filterDate('2018-02-01','2018-04-01')
+            .filterBounds(table); 
+
+function selected(image){
+  return ee.Image(image).select(['EVI']) }
+var colecao = MODIS.map(selected);
+var listed = colecao.toList(90);
+print(listed);
+var size = listed.size().getInfo();
+print('size',size);
+
+
+for(var i = 0;i < size;++i)
+{
+  var a = ee.String ('MODIS/006/MOD13Q1/'+ee.Image(listed.get(i)).get('system:index').getInfo());
+  var Name = ee.Image(listed.get(i)).get('system:index').getInfo();
+  var modis = ee.Image(a);
+  
+
+var get_stats = function (feature) {
+  return ee.Feature(null, {
+    'NDVI':
+      ee.Dictionary(
+        modis.reduceRegion({
+          reducer: ee.Reducer.mean(), 
+          geometry: ee.Feature(feature).geometry(), 
+          scale: 30, 
+          bestEffort: true, 
+          maxPixels: 10e12, 
+          tileScale: 2})).get('EVI'),
+      'ID': ee.Feature(feature).get('ID')})};
+
+var buffer_stats = table.map(get_stats);
+
+Export.table.toDrive({
+  collection: buffer_stats,
+  description: Name,
+  fileFormat: 'CSV',
+   folder:'MOD13Q1'})}
