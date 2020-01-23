@@ -163,7 +163,7 @@ sns.heatmap(platform_divergence.iloc[0:9,0:50],cmap = 'gray_r', vmin=0,vmax=100,
 
 "Change to the evaluated platform name"
 
-plt.savefig ('divergence_satveg_east.jpg', format = 'jpg', dpi = 300)
+plt.savefig ('error_seriesview_east.jpg', format = 'jpg', dpi = 300)
 
 fig, ax = plt.subplots (figsize=(12,5))
 
@@ -173,6 +173,6 @@ sns.heatmap(platform_divergence.iloc[9:18,0:50],cmap = 'gray_r', vmin=0,vmax=100
 
 "Change to the evaluated platform name"
 
-plt.savefig ('divergence_satveg_north.jpg', format = 'jpg', dpi = 300)   
+plt.savefig ('error_seriesview_north.jpg', format = 'jpg', dpi = 300)   
 
 
